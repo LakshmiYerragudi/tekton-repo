@@ -1,6 +1,7 @@
 FROM python:3.8-alpine
-
-RUN apt-get update 
-RUN apt-get install –y nginx 
-CMD [“echo”,”Image created”] 
-
+COPY ./requirements.txt /app/requirements.txt
+WORKDIR /app
+RUN pip install -r requirements.txt
+COPY . /app
+ENTRYPOINT [ "python" ]
+CMD ["main.py" ]
