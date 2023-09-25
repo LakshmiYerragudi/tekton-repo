@@ -5,3 +5,4 @@ RUN pip install -r requirements.txt
 COPY . /app
 ENTRYPOINT [ "python" ]
 CMD ["main.py" ]
+EXPOSE 8080
