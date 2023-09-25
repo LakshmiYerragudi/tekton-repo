@@ -1,8 +1,13 @@
-se a minimal base image
-FROM ubuntu:latest
+from flask import Flask
+import os
 
-RUN apt-get update && apt-get install -y apache2
+app = Flask(__name__)
 
-CMD ["apachectl", "-D", "FOREGROUND"]
+@app.route('/')
+def hello_world():
+    return 'THIS IS SAMPLE FLASK APPLICATION.'
 
-EXPOSE 80
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 8080))
+    app.run(debug=True, host='0.0.0.0', port=port)
+
