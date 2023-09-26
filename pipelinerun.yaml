@@ -1,10 +1,11 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: clone-read-run-
+  generateName: clone-build-push-run-
 spec:
+  serviceAccountName: tekton-sa
   pipelineRef:
-    name: clone-read
+    name: clone-build-push
   podTemplate:
     securityContext:
       fsGroup: 65532
@@ -17,9 +18,11 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  - name: git-credentials
+  - name: docker-credentials
     secret:
-      secretName: git-credentials
+      secretName: docker-credentials
   params:
   - name: repo-url
-    value: https://github.com/LakshmiYerragudi/tekton-repo.git
+    value:  https://github.com/LakshmiYerragudi/tekton-repo.git
+  - name: image-reference
+    value: docker.io/123lucky/my-tekton-repo:v1
